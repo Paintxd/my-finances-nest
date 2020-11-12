@@ -8,6 +8,7 @@ export class BillsController {
 
   @Get('/findAll')
   findAllBills() {
+    console.log('finding all bills');
     return this.billsService.findAll();
   }
 
@@ -16,11 +17,13 @@ export class BillsController {
     @Param('atribute') atribute: string,
     @Param('filter') filter: string,
   ) {
+    console.log('finding bills filtered');
     return this.billsService.findAllByAtributeFilter(atribute, filter);
   }
 
   @Post('/save')
   saveBill(@Body() bill: BillDto) {
+    console.log('saving bill');
     return this.billsService.saveBill(bill);
   }
 }

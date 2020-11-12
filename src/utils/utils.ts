@@ -1,5 +1,3 @@
-import { Bill } from 'src/Bills/bill';
-
 export class Utils {
   static findParam(atribute: string, param: string) {
     let statement;
