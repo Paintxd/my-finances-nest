@@ -27,10 +27,16 @@ export class Bill {
   @Column({
     type: 'enum',
     enum: PaymentMethod,
-    default: PaymentMethod.DINHEIRO,
   })
   paymentMethod: PaymentMethod;
 
-  @Column()
-  date: Date;
+  @Column({
+    default: 1,
+  })
+  installments: number;
+
+  @Column({
+    type: Date,
+  })
+  date: string;
 }
