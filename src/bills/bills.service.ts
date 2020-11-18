@@ -43,4 +43,8 @@ export class BillsService {
     }
     return await Promise.all(bills);
   }
+
+  async deleteBill(id: number) {
+    return await this.billsRepository.delete(id);
+  }
 }

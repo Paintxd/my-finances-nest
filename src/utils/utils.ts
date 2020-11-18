@@ -42,7 +42,7 @@ export class Utils {
     const dateSplited = bill.date.split('/');
     const temp = dateSplited[1];
     dateSplited[1] = dateSplited[0];
-    dateSplited[0] = temp;  
+    dateSplited[0] = temp;
 
     const date = dateSplited.join('/');
     return { ...bill, date };

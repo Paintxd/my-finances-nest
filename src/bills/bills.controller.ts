@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { BillForm } from 'src/bills/interfaces/bill-form';
 import { BillsService } from 'src/bills/bills.service';
 import { Bill } from './bill';
@@ -27,4 +27,12 @@ export class BillsController {
     console.log('saving bill');
     return this.billsService.saveBill(bill);
   }
+
+  @Delete('/delete/:id')
+  deleteBill(@Param('id') id: number) {
+    console.log('deleting bills');
+    return this.billsService.deleteBill(id);
+  }
+
+  
 }
