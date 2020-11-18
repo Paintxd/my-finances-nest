@@ -31,20 +31,13 @@ export class BillsService {
 
   async saveBill(bill: BillForm): Promise<Bill | Bill[]> {
     if (!bill.installments || bill.installments === 1)
-      return await this.billsRepository.save(bill);
+      return await this.billsRepository.save(Utils.billDateFormat(bill));
 
     let months = bill.installments;
     const bills: Promise<Bill>[] = [];
     while (months > 0) {
-      const dateSplited = bill.date.split('/'); // dd/MM/yyyy
-      const month = parseInt(dateSplited[1]) + months;
-      if (month > 12) {
-        const yearIncrease = parseInt(dateSplited[2]) + Math.trunc(month / 12);
-        dateSplited[2] = yearIncrease.toString();
-      }
-      dateSplited[1] = month % 12 === 0 ? '12' : (month % 12).toString();
+      const date = Utils.installmentsDateReturn(bill.date, months);
 
-      const date = dateSplited.reverse().join('/');
       bills.push(this.billsRepository.save({ ...bill, date }));
       months--;
     }
