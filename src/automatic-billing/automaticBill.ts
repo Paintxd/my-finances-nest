@@ -13,10 +13,8 @@ export class AutomaticBill {
   @Column('double')
   price: number;
 
-  @Column({
-    type: Date,
-  })
-  date: string;
+  @Column()
+  payDay: string;
 
   @Column({
     default: true,

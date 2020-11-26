@@ -13,16 +13,28 @@ export class AutomaticBillingService {
     return await this.automaticBillingRepository.find();
   }
 
+  async findActives() {
+    return await this.automaticBillingRepository.find({ active: true });
+  }
+
   async inactiveBill(id: number) {
-    return await this.automaticBillingRepository
+    await this.automaticBillingRepository
       .createQueryBuilder()
       .update(AutomaticBill)
       .set({ active: false })
       .where('id = :id', { id })
       .execute();
+
+    return await this.automaticBillingRepository.findOne(id);
   }
 
   async saveBill(automaticBillingDto: AutomaticBillingForm) {
     return await this.automaticBillingRepository.save(automaticBillingDto);
+  }
+
+  // implementar
+  async registerMonthBills() {
+    const activeBilling = await this.findActives();
+    return activeBilling;
   }
 }

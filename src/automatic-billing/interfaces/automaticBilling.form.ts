@@ -1,5 +1,5 @@
 export interface AutomaticBillingForm {
   type: string;
   price: number;
-  date: string;
+  payDay: string;
 }
