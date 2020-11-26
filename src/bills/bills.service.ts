@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BillForm } from 'src/bills/interfaces/bill-form';
+import { BillForm } from 'src/bills/interfaces/bill.form';
 import { Bill } from 'src/bills/bill';
 import { Utils } from 'src/utils/utils';
 import { Repository } from 'typeorm';
@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 export class BillsService {
   constructor(
     @InjectRepository(Bill)
-    private billsRepository: Repository<Bill>,
+    private readonly billsRepository: Repository<Bill>,
   ) {}
 
   async findAll(): Promise<Bill[]> {

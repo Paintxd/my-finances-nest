@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { BillForm } from 'src/bills/interfaces/bill-form';
+import { BillForm } from 'src/bills/interfaces/bill.form';
 import { BillsService } from 'src/bills/bills.service';
 import { Bill } from './bill';
 
@@ -9,7 +9,6 @@ export class BillsController {
 
   @Get('/findAll')
   findAllBills(): Promise<Bill[]> {
-    console.log('finding all bills');
     return this.billsService.findAll();
   }
 
@@ -18,21 +17,16 @@ export class BillsController {
     @Param('atribute') atribute: string,
     @Param('filter') filter: string,
   ): Promise<Bill[]> {
-    console.log('finding bills filtered');
     return this.billsService.findAllByAtributeFilter(atribute, filter);
   }
 
   @Post('/save')
   saveBill(@Body() bill: BillForm): Promise<Bill | Bill[]> {
-    console.log('saving bill');
     return this.billsService.saveBill(bill);
   }
 
   @Delete('/delete/:id')
   deleteBill(@Param('id') id: number) {
-    console.log('deleting bills');
     return this.billsService.deleteBill(id);
   }
-
-  
 }

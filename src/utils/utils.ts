@@ -1,5 +1,5 @@
 import { Bill } from 'src/bills/bill';
-import { BillForm } from 'src/bills/interfaces/bill-form';
+import { BillForm } from 'src/bills/interfaces/bill.form';
 
 export class Utils {
   static findParam(atribute: string, param: string) {
