@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { BillForm } from 'src/bills/interfaces/bill.form';
-import { BillsService } from 'src/bills/bills.service';
+import { BillForm } from './interfaces/bill.form';
+import { BillsService } from './bills.service';
 import { Bill } from './bill';
 
 @Controller('/bills')

@@ -1,5 +1,5 @@
-import { Bill } from 'src/bills/bill';
-import { BillForm } from 'src/bills/interfaces/bill.form';
+import { Bill } from '../bills/bill';
+import { BillForm } from '../bills/interfaces/bill.form';
 
 export class Utils {
   static findParam(atribute: string, param: string) {
@@ -21,9 +21,17 @@ export class Utils {
   }
 
   static billFormater(result): Bill {
-    const date: string = new Date(result.date).toLocaleDateString('pt-BR');
+    const dateSplited = new Date(result.date)
+      .toLocaleDateString('pt-BR')
+      .split('-');
+    const temp = dateSplited[0];
+    dateSplited[0] = dateSplited[2];
+    dateSplited[2] = temp;
+    dateSplited[1] =
+      parseInt(dateSplited[1]) < 10 ? `0${dateSplited[1]}` : dateSplited[1];
+    const date = dateSplited.join('/');
 
-    return { ...result, date: date };
+    return { ...result, date };
   }
 
   static installmentsDateReturn(date: string, monthCounter: number): string {

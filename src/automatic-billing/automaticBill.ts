@@ -14,7 +14,7 @@ export class AutomaticBill {
   price: number;
 
   @Column()
-  payDay: string;
+  payDay: number;
 
   @Column({
     default: true,

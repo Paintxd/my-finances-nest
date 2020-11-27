@@ -1,4 +1,4 @@
-import { PaymentMethod } from 'src/bills/bill';
+import { PaymentMethod } from '../bill';
 
 export interface BillForm {
   place: string;
