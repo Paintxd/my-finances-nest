@@ -1,5 +1,5 @@
-import { Bill } from '../bills/bill';
-import { BillForm } from '../bills/interfaces/bill.form';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 export class Utils {
   static findParam(atribute: string, param: string) {
@@ -20,20 +20,6 @@ export class Utils {
     return statement;
   }
 
-  static billFormater(result): Bill {
-    const dateSplited = new Date(result.date)
-      .toLocaleDateString('pt-BR')
-      .split('-');
-    const temp = dateSplited[0];
-    dateSplited[0] = dateSplited[2];
-    dateSplited[2] = temp;
-    dateSplited[1] =
-      parseInt(dateSplited[1]) < 10 ? `0${dateSplited[1]}` : dateSplited[1];
-    const date = dateSplited.join('/');
-
-    return { ...result, date };
-  }
-
   static installmentsDateReturn(date: string, monthCounter: number): string {
     const dateSplited = date.split('/'); // dd/MM/yyyy
     const month = parseInt(dateSplited[1]) + monthCounter;
@@ -46,13 +32,8 @@ export class Utils {
     return dateSplited.reverse().join('/');
   }
 
-  static billDateFormat(bill: BillForm): BillForm {
-    const dateSplited = bill.date.split('/');
-    const temp = dateSplited[1];
-    dateSplited[1] = dateSplited[0];
-    dateSplited[0] = temp;
-
-    const date = dateSplited.join('/');
-    return { ...bill, date };
+  static billDateFormat(bill) {
+    bill.date = format(new Date(bill.date), 'dd/MM/yyyy', { locale: ptBR });
+    return bill;
   }
 }

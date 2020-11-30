@@ -15,7 +15,7 @@ export class BillsService {
   async findAll(): Promise<Bill[]> {
     const bills = await this.billsRepository.find();
 
-    return bills.map((bill) => Utils.billFormater(bill));
+    return bills.map((bill) => Utils.billDateFormat(bill));
   }
 
   async findAllByAtributeFilter(
@@ -26,12 +26,14 @@ export class BillsService {
       Utils.findParam(atribute, filter),
     );
 
-    return bills.map((bill) => Utils.billFormater(bill));
+    return bills.map((bill) => Utils.billDateFormat(bill));
   }
 
   async saveBill(bill: BillForm): Promise<Bill | Bill[]> {
-    if (!bill.installments || bill.installments === 1)
-      return await this.billsRepository.save(Utils.billDateFormat(bill));
+    if (!bill.installments)
+      return Utils.billDateFormat(
+        await this.billsRepository.save(Utils.billDateFormat(bill)),
+      );
 
     let months = bill.installments;
     const bills: Promise<Bill>[] = [];
@@ -41,7 +43,9 @@ export class BillsService {
       bills.push(this.billsRepository.save({ ...bill, date }));
       months--;
     }
-    return await Promise.all(bills);
+
+    const result = await Promise.all(bills);
+    return result.map((bill) => Utils.billDateFormat(bill));
   }
 
   async deleteBill(id: number) {

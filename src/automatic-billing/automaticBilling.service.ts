@@ -6,6 +6,7 @@ import { PaymentMethod } from '../bills/bill';
 import { BillForm } from '../bills/interfaces/bill.form';
 import { Utils } from '../utils/utils';
 import { BillsService } from '../bills/bills.service';
+import { set } from 'date-fns';
 
 export class AutomaticBillingService {
   constructor(
@@ -41,12 +42,7 @@ export class AutomaticBillingService {
     const activeBilling = await this.findActives();
     const bills: BillForm[] = activeBilling.map(
       (automaticBill: AutomaticBill) => {
-        const dateSplited = new Date(Date.now())
-          .toLocaleDateString('pt-BR')
-          .split('/');
-        dateSplited[0] = automaticBill.payDay.toString();
-        const date = dateSplited.join('/');
-
+        const date = set(Date.now(), { date: automaticBill.payDay });
         const paymentMethod: PaymentMethod = PaymentMethod.BOLETO;
 
         const form = {
@@ -64,6 +60,8 @@ export class AutomaticBillingService {
       this.billsService.saveBill(bill),
     );
 
-    return await Promise.all(saveBills);
+    const result = await Promise.all(saveBills);
+
+    return result.map((bill) => Utils.billDateFormat(bill));
   }
 }
