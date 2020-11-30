@@ -43,8 +43,8 @@ export class AutomaticBillingService {
       (automaticBill: AutomaticBill) => {
         const dateSplited = new Date(Date.now())
           .toLocaleDateString('pt-BR')
-          .split('-');
-        dateSplited[2] = automaticBill.payDay.toString();
+          .split('/');
+        dateSplited[0] = automaticBill.payDay.toString();
         const date = dateSplited.join('/');
 
         const paymentMethod: PaymentMethod = PaymentMethod.BOLETO;
