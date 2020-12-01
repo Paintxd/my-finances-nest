@@ -1,13 +1,18 @@
-import { IsInt, IsNotEmpty, Min } from 'class-validator';
+import { IsNotEmpty, Min } from 'class-validator';
 
 export class AutomaticBillingForm {
-  @IsNotEmpty()
+  @IsNotEmpty({
+    message: 'Obrigatorio informar tipo da compra',
+  })
   type: string;
 
-  @Min(1)
+  @Min(1, {
+    message: 'Obrigatorio informar um preco valido',
+  })
   price: number;
 
-  @IsInt()
-  @Min(1)
+  @Min(1, {
+    message: 'Obrigatorio informar um dia de vencimento valido',
+  })
   payDay: number;
 }

@@ -62,6 +62,6 @@ export class AutomaticBillingService {
 
     const result = await Promise.all(saveBills);
 
-    return result.map((bill) => Utils.billDateFormat(bill));
+    return result;
   }
 }
