@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsOptional, Min } from 'class-validator';
-import { PaymentMethod } from '../bill';
+import { PaymentMethod } from './bill';
 
 export class BillForm {
   @IsNotEmpty({

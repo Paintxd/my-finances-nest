@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BillForm } from './interfaces/bill.form';
+import { BillForm } from './bill.form';
 import { Bill } from './bill';
 import { Utils } from '../utils/utils';
 import { Repository } from 'typeorm';

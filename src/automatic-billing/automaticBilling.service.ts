@@ -1,9 +1,9 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AutomaticBill } from './automaticBill';
-import { AutomaticBillingForm } from './interfaces/automaticBilling.form';
+import { AutomaticBillingForm } from './automaticBilling.form';
 import { PaymentMethod } from '../bills/bill';
-import { BillForm } from '../bills/interfaces/bill.form';
+import { BillForm } from '../bills/bill.form';
 import { Utils } from '../utils/utils';
 import { BillsService } from '../bills/bills.service';
 import { set } from 'date-fns';

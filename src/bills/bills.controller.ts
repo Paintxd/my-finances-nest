@@ -1,8 +1,18 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { BillForm } from './interfaces/bill.form';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { BillForm } from './bill.form';
 import { BillsService } from './bills.service';
 import { Bill } from './bill';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('/bills')
 export class BillsController {
   constructor(private readonly billsService: BillsService) {}

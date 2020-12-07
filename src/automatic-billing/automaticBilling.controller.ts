@@ -6,11 +6,14 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { AutomaticBillingService } from './automaticBilling.service';
-import { AutomaticBillingForm } from './interfaces/automaticBilling.form';
+import { AutomaticBillingForm } from './automaticBilling.form';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('/automatic-billing')
 export class AutomaticBillingController {
   private readonly logger = new Logger();

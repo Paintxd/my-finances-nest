@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AutomaticBillingModule } from './automatic-billing/automaticBilling.module';
 import { BillModule } from './bills/bills.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { BillModule } from './bills/bills.module';
     }),
     BillModule,
     AutomaticBillingModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
