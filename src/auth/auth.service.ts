@@ -28,10 +28,19 @@ export class AuthService {
   }
 
   async login(user: User) {
-    const payload: JwtPayload = { name: user.name, sub: user.id };
+    const payload: JwtPayload = {
+      login: user.login,
+      name: user.name,
+      id: user.id,
+    };
     return {
       ...user,
       acess_token: this.jwtService.sign(payload),
     };
+  }
+
+  decodeToken(headers) {
+    const token = headers.authorization.split(' ')[1] || '';
+    return this.jwtService.decode(token);
   }
 }

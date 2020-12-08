@@ -1,5 +1,5 @@
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Inject } from '@nestjs/common';
+import { Connection } from 'typeorm';
 import { AutomaticBill } from './automaticBill';
 import { AutomaticBillingForm } from './automaticBilling.form';
 import { PaymentMethod } from '../bills/bill';
@@ -7,35 +7,41 @@ import { BillForm } from '../bills/bill.form';
 import { Utils } from '../utils/utils';
 import { BillsService } from '../bills/bills.service';
 import { set } from 'date-fns';
+import { TenantService } from 'src/tenant/tenant-service.decorator';
+import { TENANT_CONNECTION } from 'src/tenant/tenant.module';
 
+@TenantService()
 export class AutomaticBillingService {
   constructor(
-    @InjectRepository(AutomaticBill)
-    private readonly automaticBillingRepository: Repository<AutomaticBill>,
+    @Inject(TENANT_CONNECTION) private connection: Connection,
     private readonly billsService: BillsService,
   ) {}
 
   async findAll() {
-    return await this.automaticBillingRepository.find();
+    const repository = this.connection.getRepository(AutomaticBill);
+    return await repository.find();
   }
 
   async findActives() {
-    return await this.automaticBillingRepository.find({ active: true });
+    const repository = this.connection.getRepository(AutomaticBill);
+    return await repository.find({ active: true });
   }
 
   async inactiveBill(id: number) {
-    await this.automaticBillingRepository
+    const repository = this.connection.getRepository(AutomaticBill);
+    await repository
       .createQueryBuilder()
       .update(AutomaticBill)
       .set({ active: false })
       .where('id = :id', { id })
       .execute();
 
-    return await this.automaticBillingRepository.findOne(id);
+    return await repository.findOne(id);
   }
 
   async saveBill(automaticBillingDto: AutomaticBillingForm) {
-    return await this.automaticBillingRepository.save(automaticBillingDto);
+    const repository = this.connection.getRepository(AutomaticBill);
+    return await repository.save(automaticBillingDto);
   }
 
   async registerMonthBills() {

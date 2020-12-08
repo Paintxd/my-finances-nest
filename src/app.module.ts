@@ -5,6 +5,7 @@ import { AutomaticBillingModule } from './automatic-billing/automaticBilling.mod
 import { BillModule } from './bills/bills.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { TenantModule } from './tenant/tenant.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AuthModule } from './auth/auth.module';
     AutomaticBillingModule,
     UsersModule,
     AuthModule,
+    TenantModule,
   ],
   controllers: [],
   providers: [],
