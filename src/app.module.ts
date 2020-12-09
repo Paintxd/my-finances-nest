@@ -20,7 +20,7 @@ import { TenantModule } from './tenant/tenant.module';
       synchronize: true,
       autoLoadEntities: true,
       logger: 'simple-console',
-      logging: true,
+      logging: false,
     }),
     BillModule,
     AutomaticBillingModule,

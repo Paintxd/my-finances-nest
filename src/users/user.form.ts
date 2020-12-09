@@ -16,9 +16,9 @@ export class UserForm {
   })
   password: string;
 
-  @IsEmail()
   @IsNotEmpty({
     message: 'Obrigatorio informar um email',
   })
+  @IsEmail()
   email: string;
 }

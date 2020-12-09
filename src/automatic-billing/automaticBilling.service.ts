@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Logger } from '@nestjs/common';
 import { Connection } from 'typeorm';
 import { AutomaticBill } from './automaticBill';
 import { AutomaticBillingForm } from './automaticBilling.form';
@@ -12,6 +12,7 @@ import { TENANT_CONNECTION } from 'src/tenant/tenant.module';
 
 @TenantService()
 export class AutomaticBillingService {
+  private logger = new Logger();
   constructor(
     @Inject(TENANT_CONNECTION) private connection: Connection,
     private readonly billsService: BillsService,
@@ -19,12 +20,22 @@ export class AutomaticBillingService {
 
   async findAll() {
     const repository = this.connection.getRepository(AutomaticBill);
-    return await repository.find();
+    const result = await repository.find();
+
+    this.logger.log(
+      `Automatic-billings encontradas - ${JSON.stringify(result)}`,
+    );
+    return result;
   }
 
   async findActives() {
     const repository = this.connection.getRepository(AutomaticBill);
-    return await repository.find({ active: true });
+    const result = await repository.find({ active: true });
+
+    this.logger.log(
+      `Automatic-billings ativas encontradas - ${JSON.stringify(result)}`,
+    );
+    return result;
   }
 
   async inactiveBill(id: number) {
@@ -35,13 +46,18 @@ export class AutomaticBillingService {
       .set({ active: false })
       .where('id = :id', { id })
       .execute();
+    const result = await repository.findOne(id);
 
-    return await repository.findOne(id);
+    this.logger.log(`Automatic-billing desativada - ${JSON.stringify(result)}`);
+    return result;
   }
 
   async saveBill(automaticBillingDto: AutomaticBillingForm) {
     const repository = this.connection.getRepository(AutomaticBill);
-    return await repository.save(automaticBillingDto);
+    const result = await repository.save(automaticBillingDto);
+
+    this.logger.log(`Automatic-billing salva - ${JSON.stringify(result)}`);
+    return result;
   }
 
   async registerMonthBills() {

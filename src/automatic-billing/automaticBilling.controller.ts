@@ -23,21 +23,29 @@ export class AutomaticBillingController {
 
   @Get('/findAll')
   findAllAutomaticBills() {
+    this.logger.log('Iniciando busca de todas automatic-billings');
     return this.automaticBillingService.findAll();
   }
 
   @Get('/findAll/active')
   findActives() {
+    this.logger.log('Iniciando busca de todas automatic-billings ativas');
     return this.automaticBillingService.findActives();
   }
 
   @Patch('/inactive/:id')
   inactiveAutomaticBilling(@Param('id') id: number) {
+    this.logger.log(`Desativando automatic-billing id - ${id}`);
     return this.automaticBillingService.inactiveBill(id);
   }
 
   @Post('/save')
   saveAutomaticBill(@Body() automaticBillingDto: AutomaticBillingForm) {
+    this.logger.log(
+      `Salvando nova automatic-billing - ${JSON.stringify(
+        automaticBillingDto,
+      )}`,
+    );
     return this.automaticBillingService.saveBill(automaticBillingDto);
   }
 

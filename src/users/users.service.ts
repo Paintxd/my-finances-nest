@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user';
@@ -7,17 +7,28 @@ import bcrypt = require('bcrypt');
 
 @Injectable()
 export class UsersService {
+  private logger = new Logger();
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
   ) {}
 
   async getUserById(id: number): Promise<User> {
-    return await this.usersRepository.findOne(id);
+    const result = await this.usersRepository.findOne(id);
+
+    this.logger.log(`Usuario id ${id} encontrado - ${JSON.stringify(result)}`);
+
+    return result;
   }
 
   async getUserByLogin(login: string): Promise<User> {
-    return await this.usersRepository.findOne({ login });
+    const result = await this.usersRepository.findOne({ login });
+
+    this.logger.log(
+      `Usuario login ${login} encontrado - ${JSON.stringify(result)}`,
+    );
+
+    return result;
   }
 
   async comparePassword(hash: string, password: string) {
@@ -26,11 +37,15 @@ export class UsersService {
 
   async registerUser(userForm: UserForm): Promise<User> {
     const password = await this.hashPassword(userForm.password);
+    const result = await this.usersRepository.save({ ...userForm, password });
 
-    return await this.usersRepository.save({ ...userForm, password });
+    this.logger.log(`Usuario registado - ${JSON.stringify(result)}`);
+
+    return result;
   }
 
   private async hashPassword(password: string): Promise<string> {
+    this.logger.log('Hashing password');
     const salt = await bcrypt.genSalt();
 
     return await bcrypt.hash(password, salt);
