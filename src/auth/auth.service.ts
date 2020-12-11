@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/users/user';
-import { UsersService } from 'src/users/users.service';
+import { User } from '../users/user';
+import { UsersService } from '../users/users.service';
 import { JwtPayload } from './interfaces/payload';
 import { LoginForm } from './login.form';
 

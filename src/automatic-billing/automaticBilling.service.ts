@@ -1,14 +1,14 @@
 import { Inject, Logger } from '@nestjs/common';
 import { Connection } from 'typeorm';
+import { set } from 'date-fns';
 import { AutomaticBill } from './automaticBill';
 import { AutomaticBillingForm } from './automaticBilling.form';
 import { PaymentMethod } from '../bills/bill';
 import { BillForm } from '../bills/bill.form';
 import { Utils } from '../utils/utils';
 import { BillsService } from '../bills/bills.service';
-import { set } from 'date-fns';
-import { TenantService } from 'src/tenant/tenant-service.decorator';
-import { TENANT_CONNECTION } from 'src/tenant/tenant.module';
+import { TenantService } from '../tenant/tenant-service.decorator';
+import { TENANT_CONNECTION } from '../tenant/tenant.module';
 
 @TenantService()
 export class AutomaticBillingService {

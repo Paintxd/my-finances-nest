@@ -1,8 +1,8 @@
 import { MiddlewareConsumer, Module, NestModule, Scope } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
-import { AuthModule } from 'src/auth/auth.module';
 import { Connection, getConnection } from 'typeorm';
+import { AuthModule } from '../auth/auth.module';
 import { TenantMiddleware } from './tenant.middleware';
 
 export const TENANT_CONNECTION = 'TENANT_CONNECTION';

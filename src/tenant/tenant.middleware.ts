@@ -5,10 +5,10 @@ import {
   NestMiddleware,
   UnauthorizedException,
 } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
-import { AutomaticBill } from 'src/automatic-billing/automaticBill';
-import { Bill } from 'src/bills/bill';
 import { Connection, createConnection, getConnection } from 'typeorm';
+import { AuthService } from '../auth/auth.service';
+import { AutomaticBill } from '../automatic-billing/automaticBill';
+import { Bill } from '../bills/bill';
 
 @Injectable()
 export class TenantMiddleware implements NestMiddleware {

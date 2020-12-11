@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TenantModule } from 'src/tenant/tenant.module';
+import { TenantModule } from '../tenant/tenant.module';
 import { BillsController } from './bills.controller';
 import { BillsService } from './bills.service';
 

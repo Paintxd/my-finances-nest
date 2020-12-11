@@ -11,7 +11,7 @@ import {
 import { Cron } from '@nestjs/schedule';
 import { AutomaticBillingService } from './automaticBilling.service';
 import { AutomaticBillingForm } from './automaticBilling.form';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard)
 @Controller('/automatic-billing')

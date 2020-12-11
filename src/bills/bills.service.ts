@@ -1,10 +1,10 @@
+import { Inject, Logger } from '@nestjs/common';
+import { Connection } from 'typeorm';
 import { BillForm } from './bill.form';
 import { Bill } from './bill';
 import { Utils } from '../utils/utils';
-import { Connection } from 'typeorm';
 import { TenantService } from '../tenant/tenant-service.decorator';
-import { Inject, Logger } from '@nestjs/common';
-import { TENANT_CONNECTION } from 'src/tenant/tenant.module';
+import { TENANT_CONNECTION } from '../tenant/tenant.module';
 
 @TenantService()
 export class BillsService {
