@@ -10,6 +10,7 @@ export class User {
 
   @Column({
     length: 20,
+    unique: true,
   })
   login: string;
 
@@ -20,6 +21,7 @@ export class User {
 
   @Column({
     length: 50,
+    unique: true,
   })
   email: string;
 }
