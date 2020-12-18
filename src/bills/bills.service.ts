@@ -16,7 +16,7 @@ export class BillsService {
     const bills = await repository.find();
     const formatedBills = bills.map((bill) => Utils.billDateFormat(bill));
 
-    this.logger.log(`Bills encontradas - ${formatedBills}`);
+    this.logger.log(`Bills encontradas - ${JSON.stringify(formatedBills)}`);
     return formatedBills;
   }
 

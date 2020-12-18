@@ -1,11 +1,6 @@
-import { IsNotEmpty, Min } from 'class-validator';
+import { Min } from 'class-validator';
 
 export class AutomaticBillingForm {
-  @IsNotEmpty({
-    message: 'Obrigatorio informar tipo da compra',
-  })
-  type: string;
-
   @Min(1, {
     message: 'Obrigatorio informar um preco valido',
   })

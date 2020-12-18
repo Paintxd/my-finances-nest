@@ -4,6 +4,7 @@ export enum PaymentMethod {
   CARTAO = 'cartao',
   BOLETO = 'boleto',
   DINHEIRO = 'dinheiro',
+  AUTOMATIC_BILLING = 'automatic_billing',
 }
 
 @Entity()

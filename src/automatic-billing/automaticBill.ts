@@ -7,6 +7,7 @@ export class AutomaticBill {
 
   @Column({
     length: 20,
+    default: 'AUTOMATIC_BILLING',
   })
   type: string;
 
