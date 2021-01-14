@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    environment:
+      DB_HOST: mysqlsrv
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_NAME: myfinances
+      JWT_SECRET: secretkey
+    ports:
+      - "8081:8081"
+    networks:
+      - mysql-compose-network
+
+  mysqlsrv:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "myfinances"
+    ports:
+      - "3307:3306"
+    volumes:
+      - /Users/matheus.giordani/Documents/volumes
+    networks:
+      - mysql-compose-network
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    networks:
+      - mysql-compose-network
+
+networks: 
+  mysql-compose-network:
+    driver: bridge
