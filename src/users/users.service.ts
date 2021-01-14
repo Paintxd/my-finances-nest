@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user';
@@ -23,6 +23,10 @@ export class UsersService {
 
   async getUserByLogin(login: string): Promise<User> {
     const result = await this.usersRepository.findOne({ login });
+    if (!result) {
+      this.logger.error(`Usuario login ${login} nao encontrado`);
+      throw new NotFoundException();
+    }
 
     this.logger.log(
       `Usuario login ${login} encontrado - ${JSON.stringify(result)}`,
